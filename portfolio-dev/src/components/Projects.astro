@@ -1,0 +1,50 @@
+---
+import Python from "../icons/Python.astro"
+import C from "../icons/C.astro"
+
+const TAGS = {
+PYTHON: {
+    name:"Python",
+    class:"bg-black text-white",
+    icon: Python,
+    },
+C:{
+    name:"C",
+    class: "bg-black text-white",
+    icon: C,
+        
+  },
+
+}
+const PROJECTS = [
+{
+    title: 'SVGL - Increible libreria',
+    description: 'lorem ipsum dolor sit amet',
+    link:'https://tabler.io/icons',
+    github:'https://github.com',
+    image:'../public/svgl.webp',
+    tags: [TAGS.PYTHON,TAGS.C]
+},
+
+]
+---
+{
+PROJECTS.map(({title, description, tags, image}) => (
+<article>
+    <h3 class="text-2xl font-semibold text-yellow-200 mb-2">{title}</h3>
+    <p class="text-lg mb-4 text-pretty">{description}</p>
+    <ul class="flex gap-x-2 flex-row">
+        {tags.map((tag) => (
+            <li>
+                <span class={'flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2'}>
+                <tag.icon class="size-4" />
+                {tag.name}
+                </li>
+            </span>
+        ))}
+    </ul>
+
+    <img class="rounded shadow-2xl shadow-white/10" src={image} alt={'Captura de pantalla del proyecto ${image}'}>
+</article>
+))
+}
