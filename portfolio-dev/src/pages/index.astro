@@ -11,6 +11,8 @@ import SectionContainer from '../components/SectionContainer.astro'
 import Briefcase from '../icons/Briefcase.astro';
 import CodeIcon from '../icons/Code.astro';
 import Projects from '../components/Projects.astro';
+import PersonIcon from '../icons/Person.astro';
+import AboutMe from '../components/AboutMe.astro'
 ---
 
 <Layout 
@@ -69,6 +71,14 @@ import Projects from '../components/Projects.astro';
 				Proyectos
 			</h2>
 			<Projects />	
+		</SectionContainer>
+
+		<SectionContainer id="sobremi">
+			<h2 class="text-4xl font-semibold mb-4 flex gap-x-3 items-center pt-20">
+				<PersonIcon class="size-7"/>
+				Sobre mí
+			</h2>
+			<AboutMe />	
 		</SectionContainer>
 
 	</main>

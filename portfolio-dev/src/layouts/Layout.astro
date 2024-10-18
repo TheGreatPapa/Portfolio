@@ -24,8 +24,8 @@ const { description, title } = Astro.props;
 		<title>{title}</title>
 	</head>
 	
-	<body>
-		<div class="absolute top-0 z-[-2] h-screen w-screen bg-[#000000] bg-[radial-gradient(#ffffff33_1px,#00091d_1px)] bg-[size:20px_20px]"></div>
+	<body class="bg-neutral-950 flex flex-col min-h-screen relative">
+		<div class=" absolute inset-0 z-[-2] bg-[#000000] bg-[radial-gradient(#ffffff33_1px,#00091d_1px)] bg-[size:20px_20px]"></div>
 		<Header />
 		<slot />
 		<Footer />
@@ -45,12 +45,17 @@ const { description, title } = Astro.props;
 		display: flex;
 		flex-direction: column;
 		min-height: 100vh;
+		overscroll-behavior: none;
 		
 
+	}
+	root {
+		height:100%
 	}
 	@media (prefers-reduced-motion: reduce) {
 		html{
 			scroll-behavior: auto;
 		}
 	}
+	
 </style>
