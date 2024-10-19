@@ -4,6 +4,7 @@ import C from "../icons/C.astro"
 import LinkButton from "./LinkButton.astro"
 import Link from "../icons/Link.astro"
 import GitHub from "../icons/GitHub.astro"
+import Arduino from "../icons/Arduino.astro"
 
 const TAGS = {
 PYTHON: {
@@ -16,6 +17,11 @@ C:{
     class: "bg-black text-white",
     icon: C,
         
+  },
+  ARDUINO:{
+    name:"Arduino",
+    class: "bg-black text-white",
+    icon: Arduino,
   },
 
 }
@@ -30,19 +36,19 @@ const PROJECTS = [
 },
 {
     title: 'Sujeta Muestras - Manipulador asistido por computadora',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.',
-    link:'https://tabler.io/icons',
-    github:'https://github.com',
-    image:'/svgl.webp',
-    tags: [TAGS.PYTHON,TAGS.C]
+    description: 'Se hizo el control para mover los ejes a micrometros para poder analizar el fémur de un ratón con osteoporosis con precisión para la investigación de la UNAM. ',
+    link:'https://drive.google.com/drive/folders/10ib9FfAdqp-cekgVJZC4e2967jQ5SE1f?usp=sharing',
+    github:'',
+    image:'/Femur.webp',
+    tags: [TAGS.PYTHON,TAGS.ARDUINO,TAGS.C]
 },
 {
     title: 'DOOP - Lenguaje de programación',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.',
-    link:'https://tabler.io/icons',
-    github:'https://github.com',
-    image:'/svgl.webp',
-    tags: [TAGS.PYTHON,TAGS.C]
+    description: 'Un lenguaje de programación creado por mi mismo en Python PLY lex-yacc. El lenguaje soporta asignaciones, operación de matrices, ciclos, operadores lógicos e impresión.',
+    link:'https://drive.google.com/drive/folders/1-M1IJAB9S_PhoOLn06b65NKbhMeAUW2l?usp=sharing',
+    github:'',
+    image:'/doop.webp',
+    tags: [TAGS.PYTHON]
 },
 
 ]
@@ -76,7 +82,7 @@ const PROJECTS = [
             ))}
           </ul>
   
-        <div class="mt-2 text-gray-700 dark:text-gray-400">{description}</div>
+        <div class="mt-2 text-gray-400 dark:text-gray-400">{description}</div>
         <footer class="flex items-end justify-start mt-4 gap-x-4">
             {github && (
               <LinkButton href={github}>
