@@ -1,6 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Card from '../components/Card.astro';
 import Badge from '../components/Badge.astro'
 import LinkedInIcon from '../icons/LinkedIn.astro'
 import GitHubIcon from '../icons/GitHub.astro'
@@ -19,10 +18,10 @@ import AboutMe from '../components/AboutMe.astro'
 	title="Portfolio de Luis Castillo - Desarrollador e IT Specialist"
 	description='Contrata a Luis Castillo para crear automatizaciones, monitorear u otros'>
 	<main class="px-4">
-		<SectionContainer id="about" class="py-44 pb-22">
+		<SectionContainer id="top" class="py-44 pb-22">
 			
 			<h1 class="text-white text-3xl md:text-4xl font-bold flex flex-row gap-x-4 pb-6 lg:pb-10">
-				Hey, Soy Luis Carlos <a 
+				Hola, Soy Luis Carlos <a 
 				href="https://www.linkedin.com/in/lcascab/" 
 				target="_blank"
 				rel="noopener"
@@ -31,9 +30,12 @@ import AboutMe from '../components/AboutMe.astro'
 					<Badge> Disponible para trabajar</Badge>
 			</a>
 			</h1>
-			<h2 class="text-xl lg:text-2xl text-wrap max-w-p[700px]">
-				<span>Informacion aqui cuca sobre mi,</span><span class="text-yellow-200/90 "> mi experiencia, que es lo que hago mejor y en que me especializo,</span>
-				<span class="text-green-200/90">tambien puedo agregar de donde soy y asi. </span> <span class="opacity-75">Aqui otro texto equis.</span>
+			<h2 class="text-xl lg:text-2xl text-wrap max-w-p[700px] text-pretty">
+				<span>Experiencia en Hardware y Software,</span><span class="text-yellow-200/90 "> Ingeniero en Sistemas Digitales y Robótica</span>
+				con especialización en <span class="text-yellow-200/90">automatización TI.</span>
+				<span class="text-green-200/90">De Nogales, Sonora, México 🌮.</span> <span>Me gusta eficientizar procesos con 
+					tecnología emergente.
+				</span>
 
 			</h2>
 			
@@ -73,7 +75,7 @@ import AboutMe from '../components/AboutMe.astro'
 			<Projects />	
 		</SectionContainer>
 
-		<SectionContainer id="sobremi">
+		<SectionContainer id="about">
 			<h2 class="text-4xl font-semibold mb-4 flex gap-x-3 items-center pt-20">
 				<PersonIcon class="size-7"/>
 				Sobre mí
