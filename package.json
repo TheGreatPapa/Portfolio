@@ -3,5 +3,10 @@
     "@fontsource-variable/onest": "^5.1.0",
     "@fontsource/onest": "^5.1.0",
     "@fontsource/twinkle-star": "^5.1.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.47",
+    "tailwind": "^4.0.0"
   }
 }
