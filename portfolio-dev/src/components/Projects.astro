@@ -5,6 +5,8 @@ import LinkButton from "./LinkButton.astro"
 import Link from "../icons/Link.astro"
 import GitHub from "../icons/GitHub.astro"
 import Arduino from "../icons/Arduino.astro"
+import Azure from "../icons/Azure.astro"
+import JavaScript from "../icons/JavaScript.astro"
 
 const TAGS = {
 PYTHON: {
@@ -23,16 +25,26 @@ C:{
     class: "bg-black text-white",
     icon: Arduino,
   },
+  AZURE:{
+    name:"Azure",
+    class: "bg-black text-white",
+    icon: Azure,
+  },
+  JS:{
+    name:"JavaScript",
+    class: "bg-black text-white",
+    icon: JavaScript,
+  },
 
 }
 const PROJECTS = [
 {
-    title: 'NutriApp - Aplicación para nutriólogos',
-    description: 'Cambio mayor',
-    link:'https://tabler.io/icons',
-    github:'https://github.com',
-    image:'/svgl.webp',
-    tags: [TAGS.PYTHON,TAGS.C]
+    title: 'NutriApp AI - Sistema para nutriólogos',
+    description: 'Automaticé con base un formulario de Microsoft el proceso de la generación de un plan nutricional usando GPT en una REST API programada en Python. Los datos generados se suben a una lista de Sharepoint.',
+    link:'',
+    github:'',
+    image:'/NutriApp.webp',
+    tags: [TAGS.PYTHON,TAGS.AZURE,TAGS.JS]
 },
 {
     title: 'Sujeta Muestras - Manipulador asistido por computadora',
