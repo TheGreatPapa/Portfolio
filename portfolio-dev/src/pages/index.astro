@@ -20,22 +20,26 @@ import AboutMe from '../components/AboutMe.astro'
 	<main class="px-4">
 		<SectionContainer id="top" class="py-44 pb-22">
 			
-			<h1 class="text-white text-3xl md:text-4xl font-bold flex flex-row gap-x-4 pb-6 lg:pb-10">
-				Hola, Soy Luis Carlos <a 
+			<h1 class="text-white text-3xl md:text-4xl font-bold flex flex-row gap-x-4 pb-6 lg:pb-10" >
+				<span data-translate-key="saludo" >Hola, Soy Luis Carlos</span>
+				<a 
 				href="https://www.linkedin.com/in/lcascab/" 
 				target="_blank"
 				rel="noopener"
 				class="flex justify-center items-center">
 
-					<Badge> Disponible para trabajar</Badge>
+					<Badge>
+						<span data-translate-key="contratar">Disponible para trabajar</span> 
+					</Badge>
 			</a>
 			</h1>
 			<h2 class="text-xl lg:text-2xl text-wrap max-w-p[700px] text-pretty">
-				<span>Experiencia en Hardware y Software,</span><span class="text-yellow-200/90 "> Ingeniero en Sistemas Digitales y Robótica</span>
-				con especialización en <span class="text-yellow-200/90">automatización TI.</span>
-				<span class="text-green-200/90">De Nogales, Sonora, México 🌮.</span> <span>Me gusta eficientizar procesos con 
-					tecnología emergente.
-				</span>
+				<span data-translate-key="desc1">Experiencia en Hardware y Software,</span>
+				<span class="text-yellow-200/90 " data-translate-key="desc2"> Ingeniero en Sistemas Digitales y Robótica</span>
+				<span data-translate-key="desc3">con especialización en </span>
+				<span class="text-yellow-200/90" data-translate-key="desc4">automatización TI.</span>
+				<span class="text-green-200/90" data-translate-key="desc5">De Nogales, Sonora, México 🌮.</span>
+				<span data-translate-key="desc6">Me gusta eficientizar procesos con tecnología emergente.</span>
 
 			</h2>
 			
@@ -61,7 +65,7 @@ import AboutMe from '../components/AboutMe.astro'
 		<SectionContainer id="experience">
 			<h2 class="text-4xl font-semibold mb-4 flex gap-x-3 items-center pt-20">
 				<Briefcase class="size-7"/>
-				Experiencia Laboral
+				<span data-translate-key="exp">Experiencia Laboral</span>
 			</h2>
 			<Experience />	
 		</SectionContainer>
@@ -70,7 +74,7 @@ import AboutMe from '../components/AboutMe.astro'
 		<SectionContainer id="projects">
 			<h2 class="text-4xl font-semibold mb-4 flex gap-x-3 items-center pt-20">
 				<CodeIcon class="size-7"/>
-				Proyectos
+				<span data-translate-key="proj">Proyectos</span>
 			</h2>
 			<Projects />	
 		</SectionContainer>
@@ -78,7 +82,7 @@ import AboutMe from '../components/AboutMe.astro'
 		<SectionContainer id="about">
 			<h2 class="text-4xl font-semibold mb-4 flex gap-x-3 items-center pt-20">
 				<PersonIcon class="size-7"/>
-				Sobre mí
+				<span data-translate-key="abt">Sobre mí</span>
 			</h2>
 			<AboutMe />	
 		</SectionContainer>

@@ -21,17 +21,17 @@ const { title, company, description, link, date } = Astro.props
         >&bull;</span
       >
 
-      <h3 class="text-xl font-bold text-yellow-400">{title}</h3>
-      <h4 class="font-semibold text-xl text-white dark:text-white">{company}</h4>
-      <time class="p-0 m-0 text-sm text-zinc-400 dark:text-white/80">{date}</time>
+      <h3 class="text-xl font-bold text-yellow-400" data-translate-key={title}>{title}</h3>
+      <h4 class="font-semibold text-xl text-white dark:text-white" data-translate-key={company}>{company}</h4>
+      <time class="p-0 m-0 text-sm text-zinc-400 dark:text-white/80" data-translate-key={date}>{date}</time>
     </div>
   </div>
-  <div class="relative flex flex-col gap-2 pb-4 text-zinc-200 dark:text-gray-300 md:col-span-3">
-    {description}
+  <div class="relative flex flex-col gap-2 pb-4 text-zinc-200 dark:text-gray-300 md:col-span-3" >
+    <span data-translate-key={description}>{description}</span>
     {
       link && (
         <Linkline href={link}>
-          Saber más{" "}
+          <span data-translate-key="info">Saber más{" "}</span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="w-5 icon icon-tabler icon-tabler-chevron-right"

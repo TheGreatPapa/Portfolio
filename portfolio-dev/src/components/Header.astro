@@ -4,12 +4,18 @@
         src="https://avatars.githubusercontent.com/u/144489266?v=4"
         alt="Luk foto" 
     />
-
+    <script src="../src/scripts/language-switcher.js" defer></script>
+   
     <nav class="flex flex-row gap-x-4 opacity-80 pl-4 text-sm">
-        <a href="#about">Sobre mí</a>
-        <a href="#experience">Experiencia</a>
-        <a href="#projects">Proyectos</a>
-        <a href="mailto:lcastillo.c54@gmail.com">Contacto</a>
+        <a class="hover:text-yellow-200/90" href="#about" data-translate-key="header1">Sobre mí</a>
+        <a class="hover:text-yellow-200/90" href="#experience" data-translate-key="header2">Experiencia</a>
+        <a class="hover:text-yellow-200/90" href="#projects" data-translate-key="header3">Proyectos</a>
+        <select id="language-select" class="p-2 rounded-lg px-1 py-0.5">
+            <option value="es">Es</option>
+            <option value="en">En</option>
+            <option value="fr">Fr</option>
+        </select>
 
     </nav>
+
 </header>
