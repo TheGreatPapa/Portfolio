@@ -7,6 +7,8 @@ import GitHub from "../icons/GitHub.astro"
 import Arduino from "../icons/Arduino.astro"
 import Azure from "../icons/Azure.astro"
 import JavaScript from "../icons/JavaScript.astro"
+import CPP from "../icons/CPP.astro"
+import Esp32 from "../icons/Esp32.astro"
 
 const TAGS = {
 PYTHON: {
@@ -14,10 +16,21 @@ PYTHON: {
     class:"bg-black text-white",
     icon: Python,
     },
+ESP32: {
+    name:"Esp32",
+    class:"bg-black text-white",
+    icon: Esp32,
+    },
 C:{
     name:"C",
     class: "bg-black text-white",
     icon: C,
+        
+  },
+CPP:{
+    name:"C++",
+    class: "bg-black text-white",
+    icon: CPP,
         
   },
   ARDUINO:{
@@ -38,6 +51,14 @@ C:{
 
 }
 const PROJECTS = [
+{
+    title: 'IoT Garage Door Controller - Control de Portón de garage',
+    description: 'Cree un control de puerta de garage IoT con un ESP32 y el framework Rainmaker, ademas de crear los esquemas de electronica e diseñar e imprimir en 3D una carcasa.',
+    link:'https://www.tiktok.com/@art_ilugios3d/video/7481541354506554629',
+    github:'https://github.com/TheGreatPapa/Liftmaster-MJ5011U-Controller-',
+    image:'/garage.webp',
+    tags: [TAGS.C,TAGS.CPP,TAGS.ESP32]
+},
 {
     title: 'NutriApp AI - Sistema para nutriólogos',
     description: 'Automaticé con base un formulario de Microsoft el proceso de la generación de un plan nutricional usando GPT en una REST API programada en Python. Los datos generados se suben a una lista de Sharepoint.',
