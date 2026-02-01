@@ -1,0 +1,40 @@
+---
+import ExperienceItem from "./ExperienceItem.astro"
+const EXPERIENCE = [
+{
+    date: "Actualmente...",
+    title: "Fulstack Developer",
+    company: "Ardebili Engineering",
+    description:
+      "Lidero el departamento de software para administracion de proyectos (CRM), desarrollo de API's y aplicaciones web internas para la empresa utilizando tecnologías como power platform, typescript y MCP's.",
+    link: "https://www.ardebilieng.com//",
+  },  
+{
+    date: "dic 2022 - oct 2025",
+    title: "Freelance Software Engineer",
+    company: "Outlier",
+    description:
+      "Contribuyo a proyectos para la mejora de modelos AI para mejor funcionamiento y menor alucinación utilizando lenguaje Python",
+    link: "https://outlier.ai/",
+  },
+  {
+    date: "Aug 2022 - Feb 2025",
+    title: "Especialista TI",
+    company: "Centro Escolar Newton",
+    description:
+      "Administré el directorio las cuentas de usuario de empleados y alumnos, automaticé procesos utilizando Power Automate, ofrecí servicio preventivo y mantenimiento a equipo. Hice documentación y enseñé a personal uso de plataforma.",
+    link: "https://centroenewton.edu.mx/",
+  },
+  
+]
+---
+
+<ol class="relative border-s border-gray-200 ml-3">
+  {
+    EXPERIENCE.map((experience) => (
+      <li class="">
+        <ExperienceItem {...experience} />
+      </li>
+    ))
+  }
+</ol>

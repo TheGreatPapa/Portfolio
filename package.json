@@ -1,12 +1,27 @@
 {
-  "dependencies": {
-    "@fontsource-variable/onest": "^5.1.0",
-    "@fontsource/onest": "^5.1.0",
-    "@fontsource/twinkle-star": "^5.1.0"
+  "name": "portfolio-dev",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
   },
+  "dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/tailwind": "^5.1.2",
+    "@fontsource-variable/onest": "^5.2.11",
+    "astro": "^4.16.3",
+    "tailwindcss": "^3.4.13",
+    "typescript": "^5.6.3"
+  },
+  "private": true,
   "devDependencies": {
-    "autoprefixer": "^10.4.20",
-    "postcss": "^8.4.47",
-    "tailwind": "^4.0.0"
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
   }
 }
