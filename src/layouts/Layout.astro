@@ -2,7 +2,6 @@
 
 import Header from "../components/Header.astro"
 import Footer from "../components/Footer.astro"
-import Bend from "@/components/canvasui/Bend"
 
 import '@fontsource-variable/onest';
 
@@ -26,26 +25,12 @@ const { description, title } = Astro.props
 	</head>
 	
 	<body class="relative bg-neutral-950">
-		<Bend
-			client:load
-			className="h-dvh w-full"
-			zone={160}
-			angle={90}
-			rounding={28}
-			perspective={1400}
-			smoothing={0.18}
-			tumble={0.5}
-			tilt={0.12}
-		>
-			<div class="relative flex min-h-dvh flex-col">
-				<div class="absolute top-0 z-[-2] h-screen w-screen bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]">
-				</div>
-				<Header />
-				<slot />
-				<Footer />
-			</div>
-		</Bend>
-
+    <div class="absolute top-0 z-[-2] h-screen w-screen bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]">
+      </div>
+		<Header />
+		<slot />
+		<Footer />
+	
 
 <style is:global>
 	 :root {
@@ -59,20 +44,10 @@ const { description, title } = Astro.props
 
       body {
         color: rgba(17, 17, 17, 0.9);
-        height: 100dvh;
-        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
         overscroll-behavior: none;
-      }
-
-      /* Bend hosts the page scroll, so anchor links smooth-scroll there. */
-      [data-canvasui-content] {
-        scroll-behavior: smooth;
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        [data-canvasui-content] {
-          scroll-behavior: auto;
-        }
       }
 
       @media (prefers-reduced-motion: reduce) {
