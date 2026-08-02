@@ -10,12 +10,14 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.4",
-    "@astrojs/tailwind": "^5.1.2",
-    "@fontsource-variable/onest": "^5.2.11",
-    "astro": "^4.16.3",
-    "tailwindcss": "^3.4.13",
-    "typescript": "^5.6.3"
+    "@astrojs/check": "^0.9.10",
+    "@astrojs/tailwind": "^5.1.5",
+    "@fontsource-variable/onest": "^5.3.0",
+    "astro": "^4.16.19",
+    "baseline-browser-mapping": "^2.11.10",
+    "caniuse-lite": "^1.0.30001806",
+    "tailwindcss": "^3.4.19",
+    "typescript": "^5.9.3"
   },
   "private": true,
   "devDependencies": {
