@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+/* Carries over `darkMode: 'class'` from the old tailwind.config.mjs.
+   Tailwind 4 defaults `dark:` to prefers-color-scheme; this keeps the
+   class-based strategy the project was already configured for. */
+@custom-variant dark (&:where(.dark, .dark *));
