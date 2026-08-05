@@ -17,9 +17,11 @@ const { title, company, description, link, date } = Astro.props
 >
   <div class="relative pb-12 md:col-span-2">
     <div class="sticky top-0">
-      <span class="text-yellow-400 -left-[42px] absolute rounded-full text-5xl"
-        >&bull;</span
-      >
+      {/* Centered on the <ol>'s 1px border: mx-8 (32px) + that border (1px) puts
+          its midpoint 32.5px left of this column's content edge. */}
+      <span
+        class="absolute left-[-32.5px] top-2 block size-3 -translate-x-1/2 rounded-full bg-yellow-400"
+        aria-hidden="true"></span>
 
       <h3 class="text-xl font-bold text-yellow-400">{title}</h3>
       <h4 class="font-semibold text-xl text-white dark:text-white">{company}</h4>
