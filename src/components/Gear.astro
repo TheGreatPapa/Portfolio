@@ -1,0 +1,54 @@
+---
+// Spur gear drawn from its tooth count. Pitch radius = module * teeth / 2,
+// so two gears with the same module mesh when placed pitch-radius apart.
+// Tooth centers sit at a quarter step, gaps at three quarters (see gearPhase).
+interface Props {
+  teeth: number
+  module?: number
+  phase?: number
+  spokes?: number
+  class?: string
+  style?: string
+}
+
+const { teeth, module: m = 6, phase = 0, spokes = 5, class: className, style } = Astro.props
+
+const pitch = (m * teeth) / 2
+const outer = pitch + m
+const root = pitch - 1.25 * m
+const step = (2 * Math.PI) / teeth
+const pt = (r: number, a: number) => `${(r * Math.cos(a)).toFixed(2)} ${(r * Math.sin(a)).toFixed(2)}`
+
+let d = ""
+for (let i = 0; i < teeth; i++) {
+  const a = i * step
+  d += `${i === 0 ? "M" : "L"}${pt(root, a)} L${pt(outer, a + 0.12 * step)} L${pt(outer, a + 0.38 * step)} L${pt(root, a + 0.5 * step)} A${root.toFixed(2)} ${root.toFixed(2)} 0 0 1 ${pt(root, a + step)} `
+}
+d += "Z"
+
+const circle = (cx: number, cy: number, r: number) =>
+  ` M${(cx + r).toFixed(2)} ${cy.toFixed(2)} a${r.toFixed(2)} ${r.toFixed(2)} 0 1 0 ${(-2 * r).toFixed(2)} 0 a${r.toFixed(2)} ${r.toFixed(2)} 0 1 0 ${(2 * r).toFixed(2)} 0`
+
+d += circle(0, 0, Math.max(m * 1.2, root * 0.16))
+if (root > m * 5 && spokes > 0) {
+  for (let i = 0; i < spokes; i++) {
+    const a = (i * 2 * Math.PI) / spokes
+    d += circle(root * 0.56 * Math.cos(a), root * 0.56 * Math.sin(a), root * 0.22)
+  }
+}
+
+const size = outer * 2 + 2
+---
+
+<svg
+  class={className}
+  style={style}
+  viewBox={`${-size / 2} ${-size / 2} ${size} ${size}`}
+  aria-hidden="true"
+  focusable="false"
+>
+  <g transform={`rotate(${phase})`}>
+    <path d={d} fill="currentColor" fill-rule="evenodd" />
+    <circle r={root * 0.9} fill="none" stroke="rgb(255 255 240 / 0.3)" stroke-width={m * 0.3} />
+  </g>
+</svg>

@@ -1,0 +1,23 @@
+---
+import Layout from "../layouts/Layout.astro"
+import Hero from "./Hero.astro"
+import Experience from "./Experience.astro"
+import Projects from "./Projects.astro"
+import AboutMe from "./AboutMe.astro"
+import type { Lang } from "../i18n/content"
+
+interface Props {
+  lang: Lang
+}
+
+const { lang } = Astro.props
+---
+
+<Layout lang={lang}>
+  <main>
+    <Hero lang={lang} />
+    <Experience lang={lang} />
+    <Projects lang={lang} />
+    <AboutMe lang={lang} />
+  </main>
+</Layout>

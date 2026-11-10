@@ -1,0 +1,122 @@
+---
+import Badge from "./Badge.astro"
+import Gear from "./Gear.astro"
+import GitHubIcon from "../icons/GitHub.astro"
+import LinkedInIcon from "../icons/LinkedIn.astro"
+import MailIcon from "../icons/Mail.astro"
+import { COPY, CONTACT, type Lang } from "../i18n/content"
+
+interface Props {
+  lang: Lang
+}
+
+const { lang } = Astro.props
+const { hero } = COPY[lang]
+
+// Gear train laid out in a 360 x 372 box. Centers sit pitch radii apart and
+// phases put a tooth of the driver into a gap of each follower; periods scale
+// with tooth count so the train turns as one.
+const W = 360
+const H = 372
+const MODULE = 7
+const train = [
+  { teeth: 28, cx: 150, cy: 150, phase: -38.2143, period: 56, direction: "normal", color: "text-brass" },
+  { teeth: 14, cx: 270.42, cy: 65.68, phase: 125.7143, period: 28, direction: "reverse", color: "text-copper" },
+  { teeth: 20, cx: 246.36, cy: 287.62, phase: 221.5, period: 40, direction: "reverse", color: "text-brass-dark" },
+].map((g) => {
+  const size = MODULE * g.teeth + 2 * MODULE + 2
+  return {
+    ...g,
+    style: `left:${((g.cx - size / 2) / W) * 100}%;top:${((g.cy - size / 2) / H) * 100}%;width:${(size / W) * 100}%;--gear-duration:${g.period}s;--gear-direction:${g.direction}`,
+  }
+})
+
+const PORTRAIT_R = 84
+const porthole = `left:${((150 - PORTRAIT_R) / W) * 100}%;top:${((150 - PORTRAIT_R) / H) * 100}%;width:${((2 * PORTRAIT_R) / W) * 100}%`
+const rivets = Array.from({ length: 8 }, (_, i) => {
+  const a = (i * Math.PI) / 4 + Math.PI / 8
+  return `left:${50 + 47 * Math.cos(a)}%;top:${50 + 47 * Math.sin(a)}%`
+})
+---
+
+<section id="top" class="mx-auto grid w-full max-w-[1280px] items-center gap-12 px-6 pt-[clamp(3rem,7vw,6rem)] pb-[clamp(4rem,8vw,8rem)] md:grid-cols-12">
+  <div class="md:col-span-7">
+    <p class="meta uppercase tracking-[0.18em]" data-reveal>{hero.kicker}</p>
+
+    <h1 class="mt-4 text-[clamp(2.5rem,5vw,4rem)] leading-[1.05] tracking-tight" data-reveal style="--i:1">
+      <span class="block text-[0.5em] italic text-sepia">{hero.greeting}</span>
+      Luis Carlos Castillo
+    </h1>
+
+    <div class="mt-5" data-reveal style="--i:2">
+      <a href={CONTACT.linkedin} target="_blank" rel="noopener noreferrer" class="inline-block rounded-full">
+        <Badge>{hero.badge}</Badge>
+      </a>
+    </div>
+
+    <p class="mt-6 max-w-[60ch] text-xl leading-relaxed" data-reveal style="--i:3">{hero.lead}</p>
+    <p class="mt-4 max-w-[60ch] text-sepia" data-reveal style="--i:4">{hero.sub}</p>
+
+    <div class="mt-8 flex flex-wrap gap-3" data-reveal style="--i:5">
+      <a class="btn btn-primary" href="#projects">{hero.ctaPrimary}</a>
+      <a class="btn btn-ghost" href="#contact">{hero.ctaSecondary}</a>
+    </div>
+
+    <ul class="meta mt-8 flex flex-wrap gap-x-6 gap-y-3" data-reveal style="--i:6">
+      <li>
+        <a class="ink-link inline-flex items-center gap-2" href={CONTACT.linkedin} target="_blank" rel="noopener noreferrer">
+          <LinkedInIcon class="size-4 fill-current" /> LinkedIn
+        </a>
+      </li>
+      <li>
+        <a class="ink-link inline-flex items-center gap-2" href={CONTACT.github} target="_blank" rel="noopener noreferrer">
+          <GitHubIcon class="size-4 fill-current" /> GitHub
+        </a>
+      </li>
+      <li>
+        <a class="ink-link inline-flex items-center gap-2" href={`mailto:${CONTACT.email}`}>
+          <MailIcon class="size-4" /> {CONTACT.email}
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="md:col-span-5" data-reveal style="--i:2">
+    <div class="relative mx-auto w-full max-w-[420px]" style={`aspect-ratio: ${W} / ${H}`}>
+      <div class="gaslamp absolute" style="left:-8%;top:-6%;width:96%;height:88%" aria-hidden="true"></div>
+      {train.map((g) => <Gear teeth={g.teeth} module={MODULE} phase={g.phase} class={`gear-spin absolute ${g.color}`} style={g.style} />)}
+      <div class="porthole absolute" style={porthole}>
+        <img src="/me.webp" alt={hero.portraitAlt} width="336" height="336" class="block aspect-square w-full rounded-full object-cover" />
+        {rivets.map((r) => <span class="rivet" style={r} aria-hidden="true"></span>)}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .porthole {
+    aspect-ratio: 1;
+    padding: 7%;
+    border-radius: 999px;
+    background: conic-gradient(from 210deg, #f0e39a, #8c7f2a, #e4d88f, #6d6220, #d9cc7b, #8c7f2a, #f0e39a);
+    box-shadow:
+      0 0 0 2px #5e5318,
+      0 14px 34px rgb(62 36 20 / 0.45),
+      inset 0 0 0 1px rgb(255 255 240 / 0.6);
+  }
+
+  .porthole img {
+    object-position: 50% 29%;
+    filter: sepia(0.18) saturate(0.95);
+    box-shadow: 0 0 0 3px #5e5318;
+  }
+
+  .rivet {
+    position: absolute;
+    width: 4.5%;
+    aspect-ratio: 1;
+    translate: -50% -50%;
+    border-radius: 999px;
+    background: radial-gradient(circle at 35% 30%, #f3e9b5 0 18%, #a8963a 45%, #5e5318 80%);
+  }
+</style>

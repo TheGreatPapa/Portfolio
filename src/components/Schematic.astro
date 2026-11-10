@@ -1,0 +1,160 @@
+---
+// Engineering-drawing style illustrations for projects without public screenshots.
+import type { Lang } from "../i18n/content"
+
+interface Props {
+  variant: "tracker" | "flow" | "ticket"
+  alt: string
+  lang: Lang
+  class?: string
+}
+
+const { variant, alt, lang, class: className } = Astro.props
+
+const L = {
+  en: { evaluation: "90-DAY EVALUATION", week: "WEEK", roles: "ROLES", sheet: "SHEET A4", status: "STATUS" },
+  es: { evaluation: "EVALUACIÓN DE 90 DÍAS", week: "SEMANA", roles: "ROLES", sheet: "HOJA A4", status: "ESTADO" },
+}[lang]
+
+const INK = "#704214"
+const TEAL = "#008080"
+const BRASS = "#B5A642"
+const MAHOGANY = "#5C0000"
+
+// tracker: 4 people x 6 review periods; cells done up to a per-row progress
+const progress = [6, 4, 3, 1]
+const cols = Array.from({ length: 6 }, (_, i) => i)
+---
+
+<svg
+  class={className}
+  viewBox="0 0 480 300"
+  role="img"
+  aria-label={alt}
+  font-family="'JetBrains Mono Variable', ui-monospace, monospace"
+>
+  <defs>
+    <pattern id={`grid-${variant}`} width="16" height="16" patternUnits="userSpaceOnUse">
+      <path d="M16 0H0V16" fill="none" stroke={INK} stroke-opacity="0.12" stroke-width="0.6" />
+    </pattern>
+    <marker id={`arrow-${variant}`} viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill={INK} />
+    </marker>
+  </defs>
+
+  <rect width="480" height="300" fill={`url(#grid-${variant})`} />
+  <rect x="10" y="10" width="460" height="280" fill="none" stroke={INK} stroke-opacity="0.5" stroke-dasharray="2 4" />
+
+  {
+    variant === "tracker" && (
+      <g>
+        <text x="30" y="42" font-size="12" fill={MAHOGANY} letter-spacing="1.5">{L.evaluation}</text>
+        {cols.map((c) => (
+          <text x={56 + c * 46 + 18} y="68" font-size="10" fill={INK} text-anchor="middle">P{c + 1}</text>
+        ))}
+        {progress.map((done, r) => (
+          <g>
+            <circle cx="36" cy={92 + r * 36} r="9" fill="none" stroke={INK} stroke-width="1.4" />
+            <circle cx="36" cy={88 + r * 36} r="3" fill={INK} />
+            {cols.map((c) => (
+              <g>
+                <rect
+                  x={56 + c * 46}
+                  y={78 + r * 36}
+                  width="36"
+                  height="28"
+                  rx="4"
+                  fill={c < done ? BRASS : "none"}
+                  fill-opacity={c < done ? 0.35 : 0}
+                  stroke={c === done ? TEAL : INK}
+                  stroke-width={c === done ? 2 : 1.1}
+                />
+                {c < done && (
+                  <path
+                    d={`M${56 + c * 46 + 11} ${92 + r * 36}l5 5l9 -10`}
+                    fill="none"
+                    stroke={MAHOGANY}
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                )}
+              </g>
+            ))}
+          </g>
+        ))}
+        <line x1="56" y1="238" x2="328" y2="238" stroke={INK} stroke-width="1" marker-start={`url(#arrow-${variant})`} marker-end={`url(#arrow-${variant})`} />
+        <text x="56" y="258" font-size="10" fill={INK}>{L.week} 2</text>
+        <text x="328" y="258" font-size="10" fill={INK} text-anchor="end">{L.week} 12</text>
+        <g transform="translate(400 150)">
+          <path d="M0 -62 L48 -44 V4 C48 36 24 54 0 66 C-24 54 -48 36 -48 4 V-44 Z" fill={TEAL} fill-opacity="0.12" stroke={TEAL} stroke-width="2" />
+          <circle cx="0" cy="-4" r="11" fill="none" stroke={MAHOGANY} stroke-width="2" />
+          <path d="M-4 4 L-6 26 H6 L4 4" fill={MAHOGANY} />
+          <text x="0" y="92" font-size="11" fill={MAHOGANY} text-anchor="middle" letter-spacing="2">RLS</text>
+        </g>
+      </g>
+    )
+  }
+
+  {
+    variant === "flow" && (
+      <g>
+        {[
+          { x: 30, label: "POWER APPS" },
+          { x: 175, label: "POWER AUTOMATE" },
+          { x: 330, label: "DATAVERSE" },
+        ].map((b) => (
+          <g>
+            <rect x={b.x} y="56" width="120" height="64" rx="6" fill="#FFFFF0" fill-opacity="0.6" stroke={INK} stroke-width="1.4" />
+            <text x={b.x + 60} y="93" font-size="10" fill={MAHOGANY} text-anchor="middle" letter-spacing="1">{b.label}</text>
+          </g>
+        ))}
+        <line x1="150" y1="88" x2="173" y2="88" stroke={TEAL} stroke-width="3" marker-end={`url(#arrow-${variant})`} />
+        <line x1="295" y1="88" x2="328" y2="88" stroke={TEAL} stroke-width="3" marker-end={`url(#arrow-${variant})`} />
+        <rect x="102" y="176" width="140" height="56" rx="6" fill="#FFFFF0" fill-opacity="0.6" stroke={INK} stroke-width="1.4" />
+        <text x="172" y="202" font-size="10" fill={MAHOGANY} text-anchor="middle" letter-spacing="1">SHAREPOINT</text>
+        <text x="172" y="218" font-size="9" fill={INK} text-anchor="middle">LISTS</text>
+        <path d="M90 120 V204 H100" fill="none" stroke={INK} stroke-width="1.6" marker-end={`url(#arrow-${variant})`} />
+        <path d="M244 204 H262 V122" fill="none" stroke={INK} stroke-width="1.6" marker-end={`url(#arrow-${variant})`} />
+        <text x="270" y="166" font-size="9" fill={INK}>{L.status}</text>
+        <g transform="translate(392 206)">
+          <circle r="40" fill="#FFFFF0" fill-opacity="0.6" stroke={INK} stroke-width="1.6" />
+          <circle r="34" fill="none" stroke={BRASS} stroke-width="4" stroke-dasharray="2 6" />
+          <line x1="0" y1="0" x2="22" y2="-18" stroke={MAHOGANY} stroke-width="2.5" stroke-linecap="round" />
+          <circle r="4" fill={MAHOGANY} />
+          <text x="0" y="60" font-size="10" fill={INK} text-anchor="middle" letter-spacing="1.5">{L.roles}</text>
+        </g>
+      </g>
+    )
+  }
+
+  {
+    variant === "ticket" && (
+      <g>
+        <rect x="120" y="30" width="240" height="240" fill="#FFFFF0" fill-opacity="0.7" stroke={INK} stroke-width="1.4" />
+        {[0, 1, 2].map((r) =>
+          [0, 1].map((c) => (
+            <g transform={`translate(${138 + c * 106} ${50 + r * 72})`}>
+              <path
+                d="M0 0 H98 V22 a7 7 0 0 0 0 14 V58 H0 V36 a7 7 0 0 0 0 -14 Z"
+                fill={BRASS}
+                fill-opacity="0.25"
+                stroke={INK}
+                stroke-width="1.2"
+              />
+              <line x1="70" y1="6" x2="70" y2="52" stroke={INK} stroke-dasharray="3 3" />
+              <text x="35" y="35" font-size="13" fill={MAHOGANY} text-anchor="middle">
+                {String(r * 2 + c + 1).padStart(3, "0")}
+              </text>
+            </g>
+          )),
+        )}
+        <text x="370" y="44" font-size="9" fill={INK}>{L.sheet}</text>
+        <line x1="40" y1="70" x2="112" y2="70" stroke={TEAL} stroke-width="2" marker-end={`url(#arrow-${variant})`} />
+        <text x="40" y="60" font-size="10" fill={TEAL}>PNG</text>
+        <line x1="368" y1="230" x2="440" y2="230" stroke={TEAL} stroke-width="2" marker-end={`url(#arrow-${variant})`} />
+        <text x="380" y="220" font-size="10" fill={TEAL}>PDF</text>
+      </g>
+    )
+  }
+</svg>

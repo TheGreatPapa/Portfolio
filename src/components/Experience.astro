@@ -1,40 +1,65 @@
 ---
+import Gear from "./Gear.astro"
+import SectionContainer from "./SectionContainer.astro"
+import SectionHeading from "./SectionHeading.astro"
 import ExperienceItem from "./ExperienceItem.astro"
-const EXPERIENCE = [
-{
-    date: "Actualmente...",
-    title: "Fulstack Developer",
-    company: "Ardebili Engineering",
-    description:
-      "Lidero el departamento de software para administracion de proyectos (CRM), desarrollo de API's y aplicaciones web internas para la empresa utilizando tecnologías como power platform, typescript y MCP's.",
-    link: "https://www.ardebilieng.com//",
-  },  
-{
-    date: "dic 2022 - oct 2025",
-    title: "Freelance Software Engineer",
-    company: "Outlier",
-    description:
-      "Contribuyo a proyectos para la mejora de modelos AI para mejor funcionamiento y menor alucinación utilizando lenguaje Python",
-    link: "https://outlier.ai/",
-  },
-  {
-    date: "Aug 2022 - Feb 2025",
-    title: "Especialista TI",
-    company: "Centro Escolar Newton",
-    description:
-      "Administré el directorio las cuentas de usuario de empleados y alumnos, automaticé procesos utilizando Power Automate, ofrecí servicio preventivo y mantenimiento a equipo. Hice documentación y enseñé a personal uso de plataforma.",
-    link: "https://centroenewton.edu.mx/",
-  },
-  
-]
+import Briefcase from "../icons/Briefcase.astro"
+import { COPY, type Lang } from "../i18n/content"
+
+interface Props {
+  lang: Lang
+}
+
+const { lang } = Astro.props
+const { experience, sections } = COPY[lang]
 ---
 
-<ol class="relative border-s border-gray-200 ml-3">
-  {
-    EXPERIENCE.map((experience) => (
-      <li class="">
-        <ExperienceItem {...experience} />
-      </li>
-    ))
+<SectionContainer id="experience">
+  <SectionHeading numeral="I" title={sections.experience}>
+    <Briefcase class="size-7" />
+  </SectionHeading>
+
+  <ol class="timeline relative grid gap-12 md:gap-16">
+    <span class="pipe" aria-hidden="true"></span>
+    {
+      experience.map((job, i) => (
+        <li class="relative" data-reveal style={`--i:${i}`}>
+          <Gear teeth={10} module={2.6} class="node gear-spin text-brass-dark" style={`--gear-duration:${18 + i * 4}s`} />
+          <ExperienceItem {...job} />
+        </li>
+      ))
+    }
+  </ol>
+</SectionContainer>
+
+<style>
+  .timeline {
+    --rail: 14px;
   }
-</ol>
+
+  .pipe {
+    position: absolute;
+    top: 0.5rem;
+    bottom: 0.5rem;
+    left: calc(var(--rail) - 3px);
+    width: 6px;
+    border-radius: 3px;
+    background: linear-gradient(90deg, #7d7128, #e4d88f 45%, #7d7128);
+    box-shadow: 0 0 0 1px rgb(94 83 24 / 0.5);
+  }
+
+  .timeline :global(.node) {
+    position: absolute;
+    top: 0.1rem;
+    left: calc(var(--rail) - 15px);
+    width: 30px;
+    z-index: 1;
+    filter: drop-shadow(0 1px 1px rgb(62 36 20 / 0.4));
+  }
+
+  @media (min-width: 768px) {
+    .timeline {
+      --rail: calc(14rem + 1.25rem);
+    }
+  }
+</style>

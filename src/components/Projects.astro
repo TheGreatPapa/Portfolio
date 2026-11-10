@@ -1,139 +1,112 @@
 ---
-import Python from "../icons/Python.astro"
-import C from "../icons/C.astro"
-import LinkButton from "./LinkButton.astro"
-import Link from "../icons/Link.astro"
-import GitHub from "../icons/GitHub.astro"
-import Arduino from "../icons/Arduino.astro"
-import Azure from "../icons/Azure.astro"
-import JavaScript from "../icons/JavaScript.astro"
-import CPP from "../icons/CPP.astro"
-import Esp32 from "../icons/Esp32.astro"
+import SectionContainer from "./SectionContainer.astro"
+import SectionHeading from "./SectionHeading.astro"
+import ProjectVisual from "./ProjectVisual.astro"
+import CodeIcon from "../icons/Code.astro"
+import GitHubIcon from "../icons/GitHub.astro"
+import LinkIcon from "../icons/Link.astro"
+import { COPY, type Lang } from "../i18n/content"
 
-const TAGS = {
-PYTHON: {
-    name:"Python",
-    class:"bg-black text-white",
-    icon: Python,
-    },
-ESP32: {
-    name:"Esp32",
-    class:"bg-black text-white",
-    icon: Esp32,
-    },
-C:{
-    name:"C",
-    class: "bg-black text-white",
-    icon: C,
-        
-  },
-CPP:{
-    name:"C++",
-    class: "bg-black text-white",
-    icon: CPP,
-        
-  },
-  ARDUINO:{
-    name:"Arduino",
-    class: "bg-black text-white",
-    icon: Arduino,
-  },
-  AZURE:{
-    name:"Azure",
-    class: "bg-black text-white",
-    icon: Azure,
-  },
-  JS:{
-    name:"JavaScript",
-    class: "bg-black text-white",
-    icon: JavaScript,
-  },
-
+interface Props {
+  lang: Lang
 }
-const PROJECTS = [
-{
-    title: 'IoT Garage Door Controller - Control de Portón de garage',
-    description: 'Cree un control de puerta de garage IoT con un ESP32 y el framework Rainmaker, ademas de crear los esquemas de electronica e diseñar e imprimir en 3D una carcasa.',
-    link:'https://www.tiktok.com/@art_ilugios3d/video/7481541354506554629',
-    github:'https://github.com/TheGreatPapa/Liftmaster-MJ5011U-Controller-',
-    image:'/garage.webp',
-    tags: [TAGS.C,TAGS.CPP,TAGS.ESP32]
-},
-{
-    title: 'NutriApp AI - Sistema para nutriólogos',
-    description: 'Automaticé con base un formulario de Microsoft el proceso de la generación de un plan nutricional usando GPT en una REST API programada en Python. Los datos generados se suben a una lista de Sharepoint.',
-    link:'',
-    github:'',
-    image:'/NutriApp.webp',
-    tags: [TAGS.PYTHON,TAGS.AZURE,TAGS.JS]
-},
-{
-    title: 'Sujeta Muestras - Manipulador asistido por computadora',
-    description: 'Se hizo el control para mover los ejes a micrometros para poder analizar el fémur de un ratón con osteoporosis con precisión para la investigación de la UNAM. ',
-    link:'https://drive.google.com/drive/folders/10ib9FfAdqp-cekgVJZC4e2967jQ5SE1f?usp=sharing',
-    github:'',
-    image:'/Femur.webp',
-    tags: [TAGS.PYTHON,TAGS.ARDUINO,TAGS.C]
-},
-{
-    title: 'DOOP - Lenguaje de programación',
-    description: 'Un lenguaje de programación creado por mi mismo en Python PLY lex-yacc. El lenguaje soporta asignaciones, operación de matrices, ciclos, operadores lógicos e impresión.',
-    link:'https://drive.google.com/drive/folders/1-M1IJAB9S_PhoOLn06b65NKbhMeAUW2l?usp=sharing',
-    github:'',
-    image:'/doop.webp',
-    tags: [TAGS.PYTHON]
-},
 
-]
+const { lang } = Astro.props
+const { featured, workshop, sections } = COPY[lang]
+
+// Asymmetric workshop grid: wide, narrow / narrow, wide
+const spans = ["md:col-span-4", "md:col-span-2", "md:col-span-2", "md:col-span-4"]
 ---
 
-<div class="flex flex-col gap-y-16">
+<SectionContainer id="projects">
+  <SectionHeading numeral="II" title={sections.projects} intro={sections.projectsIntro}>
+    <CodeIcon class="size-7" />
+  </SectionHeading>
+
+  <div class="flex flex-col gap-[clamp(4rem,7vw,6rem)]">
     {
-      PROJECTS.map(({ image, title, description, tags, link, github }) => (
-      <article class="flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0">
-    <div class="w-full md:w-1/2">
-      <div class="relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50">
-        <img alt="Recién llegado vs 5 años en Nueva Zelanda" class="object-cover object-top w-full h-56 transition duration-500 sm:h-full md:scale-110 md:group-hover:scale-105" loading="lazy" src={image} />
-      </div>
-    </div>
-  
-    <div class="w-full md:w-1/2 md:max-w-lg">
-      <h3 class="text-2xl font-bold text-zinc-100 dark:text-gray-100">
-        {title}
-      </h3>
-      <div class="flex flex-wrap mt-2">
-        <ul class="flex flex-row mb-2 gap-x-2">
-            {tags.map((tag) => (
-              <li>
-                <span
-                  class={`flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2 `}
-                >
-                  <tag.icon class="size-4" />
-                  {tag.name}
-                </span>
-              </li>
-            ))}
-          </ul>
-  
-        <div class="mt-2 text-gray-400 dark:text-gray-400">{description}</div>
-        <footer class="flex items-end justify-start mt-4 gap-x-4">
-            {github && (
-              <LinkButton href={github}>
-                <GitHub class="size-6" />
-                Code
-                
-              </LinkButton>
+      featured.map((p, i) => (
+        <article class="grid items-center gap-8 md:grid-cols-12 md:gap-12" data-reveal>
+          <div class:list={["md:col-span-7", i % 2 === 1 && "md:order-2"]}>
+            <div class="card riveted lift p-3">
+              <ProjectVisual visual={p.visual} lang={lang} />
+            </div>
+          </div>
+
+          <div class:list={["md:col-span-5", i % 2 === 1 && "md:order-1"]}>
+            <p class="meta uppercase">{p.context}</p>
+            <h3 class="mt-2 text-[1.75rem] leading-tight">{p.title}</h3>
+            <p class="mt-4 max-w-[72ch]">{p.description}</p>
+            {p.highlights && (
+              <ul class="bullets mt-4 space-y-2 text-[0.95rem]">
+                {p.highlights.map((h) => (
+                  <li>{h}</li>
+                ))}
+              </ul>
             )}
-            {link && (
-              <LinkButton href={link}>
-                <Link class="size-4" />
-                Preview
-              </LinkButton>
+            {p.note && <p class="mt-4 text-sm italic text-sepia">{p.note}</p>}
+            <ul class="mt-5 flex flex-wrap gap-2">
+              {p.tags.map((t) => (
+                <li class="chip">{t}</li>
+              ))}
+            </ul>
+            {p.links.length > 0 && (
+              <div class="mt-6 flex flex-wrap gap-3">
+                {p.links.map((l) => (
+                  <a class="btn btn-ghost px-4 py-2 text-base" href={l.href} target="_blank" rel="noopener noreferrer">
+                    {l.type === "code" ? <GitHubIcon class="size-4 fill-current" /> : <LinkIcon class="size-4" />}
+                    {l.label}
+                  </a>
+                ))}
+              </div>
             )}
-          </footer>
-      </div>
-    </div>
-  </article>
+          </div>
+        </article>
       ))
     }
   </div>
+
+  <div class="mt-[clamp(4rem,8vw,7rem)]">
+    <div class="mb-8" data-reveal>
+      <h3 class="text-[1.75rem] leading-tight">{sections.workshop}</h3>
+      <p class="mt-2 text-sepia">{sections.workshopIntro}</p>
+    </div>
+
+    <div class="grid gap-6 md:grid-cols-6">
+      {
+        workshop.map((p, i) => {
+          const wide = spans[i % spans.length] === "md:col-span-4"
+          return (
+            <div class:list={[spans[i % spans.length]]} data-reveal style={`--i:${i % 2}`}>
+              <article class="card riveted lift flex h-full flex-col gap-5 p-5">
+                <div class="overflow-hidden rounded-md border border-copper/40">
+                  <ProjectVisual visual={p.visual} lang={lang} aspect={wide ? "aspect-[16/10] md:aspect-[21/9]" : "aspect-[16/10]"} />
+                </div>
+                <div>
+                  <p class="meta text-[0.72rem] uppercase">{p.context}</p>
+                  <h4 class="mt-1.5 text-[1.4rem] leading-snug">{p.title}</h4>
+                  <p class="mt-3 text-[0.95rem]">{p.description}</p>
+                  <ul class="mt-4 flex flex-wrap gap-2">
+                    {p.tags.map((t) => (
+                      <li class="chip">{t}</li>
+                    ))}
+                  </ul>
+                  {p.links.length > 0 && (
+                    <div class="mt-4 flex flex-wrap gap-x-5 gap-y-2">
+                      {p.links.map((l) => (
+                        <a class="ink-link inline-flex items-center gap-1.5" href={l.href} target="_blank" rel="noopener noreferrer">
+                          {l.type === "code" ? <GitHubIcon class="size-4 fill-current" /> : <LinkIcon class="size-4" />}
+                          {l.label}
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </article>
+            </div>
+          )
+        })
+      }
+    </div>
+  </div>
+</SectionContainer>

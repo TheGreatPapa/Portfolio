@@ -1,16 +1,139 @@
+---
+import Gear from "./Gear.astro"
+import { COPY, otherLang, pathFor, type Lang } from "../i18n/content"
 
-<header class="flex justify-between items-center py-5 w:full xl:w-[1200px] mx-auto">
-    <img 
-        class="rounded-full size-12 mb-4"
-        src="https://avatars.githubusercontent.com/u/144489266?v=4"
-        alt="Luk foto" 
-    />
+interface Props {
+  lang: Lang
+}
 
-    <nav class="flex flex-row gap-x-4 opacity-80 pl-4 text-sm">
-        <a href="#about">Sobre mí</a>
-        <a href="#experience">Experiencia</a>
-        <a href="#projects">Proyectos</a>
-        <a href="mailto:lcastillo.c54@gmail.com">Contacto</a>
+const { lang } = Astro.props
+const { nav } = COPY[lang]
+const other = otherLang(lang)
 
+const items = [
+  { href: "#experience", label: nav.experience },
+  { href: "#projects", label: nav.projects },
+  { href: "#about", label: nav.about },
+  { href: "#contact", label: nav.contact },
+]
+---
+
+<header class="brass-bar riveted sticky top-0 z-[100]">
+  <div class="mx-auto flex max-w-[1280px] items-center justify-between gap-4 px-6 py-2.5">
+    <a href="#top" class="flex items-center gap-2.5 rounded-md text-mahogany">
+      <Gear teeth={12} module={4} class="gear-spin size-8 text-mahogany/85" style="--gear-duration: 24s" />
+      <span class="text-xl tracking-wide">L. C. Castillo</span>
+    </a>
+
+    <nav aria-label={nav.menu} class="hidden md:block">
+      <ul class="flex items-center gap-7">
+        {
+          items.map((item) => (
+            <li>
+              <a href={item.href} data-nav-link class="nav-link">
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
     </nav>
+
+    <div class="flex items-center gap-3">
+      <div class="lang-switch" role="group" aria-label="Language / Idioma">
+        <a href={pathFor("en")} hreflang="en" lang="en" aria-current={lang === "en" ? "page" : undefined} title={other === "en" ? nav.switchTo : undefined}>EN</a>
+        <a href={pathFor("es")} hreflang="es" lang="es" aria-current={lang === "es" ? "page" : undefined} title={other === "es" ? nav.switchTo : undefined}>ES</a>
+      </div>
+
+      <details class="mobile-menu relative md:hidden">
+        <summary class="btn btn-ghost px-3 py-1.5 text-base">{nav.menu}</summary>
+        <ul class="card absolute right-0 top-full z-[200] mt-3 flex min-w-48 flex-col gap-1 p-3">
+          {
+            items.map((item) => (
+              <li>
+                <a href={item.href} data-nav-link class="nav-link block px-2 py-1.5">
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </details>
+    </div>
+  </div>
 </header>
+
+<style>
+  .brass-bar {
+    background: linear-gradient(180deg, #e4d88f 0%, var(--color-brass) 55%, #968a32 100%);
+    border-bottom: 2px solid var(--color-brass-dark);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 240 / 0.5),
+      0 4px 14px rgb(62 36 20 / 0.25);
+  }
+
+  .nav-link {
+    position: relative;
+    color: var(--color-mahogany);
+    font-size: 1.05rem;
+    letter-spacing: 0.02em;
+  }
+
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -4px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--color-teal);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 200ms var(--ease-spring);
+  }
+
+  .nav-link:hover::after,
+  .nav-link[aria-current]::after {
+    transform: scaleX(1);
+  }
+
+  .nav-link[aria-current] {
+    text-shadow: 0 0 0.6px currentColor;
+  }
+
+  .lang-switch {
+    display: inline-flex;
+    padding: 2px;
+    border-radius: 0.5rem;
+    border: 1px solid rgb(92 0 0 / 0.35);
+    background: rgb(255 255 240 / 0.25);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+  }
+
+  .lang-switch a {
+    padding: 0.2rem 0.55rem;
+    border-radius: 0.375rem;
+    color: var(--color-mahogany);
+    transition: background-color 200ms ease-out;
+  }
+
+  .lang-switch a:hover {
+    background: rgb(255 255 240 / 0.45);
+  }
+
+  .lang-switch a[aria-current="page"] {
+    color: var(--color-parchment);
+    background: var(--color-mahogany);
+  }
+
+  .mobile-menu summary {
+    list-style: none;
+    cursor: pointer;
+  }
+
+  .mobile-menu summary::-webkit-details-marker {
+    display: none;
+  }
+</style>

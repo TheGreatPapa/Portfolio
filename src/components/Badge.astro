@@ -1,10 +1,58 @@
-<div class="flex items-center ">
-  <span class="relative inline-flex overflow-hidden rounded-full p-[1px]">
-    <span
-      class="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#51E4B8_0%,#21554E_50%,#51E4B8_100%)]"
-    ></span>
-    <div class="inline-flex items-center justify-center w-full px-3 py-1 text-sm text-green-800 bg-green-100 rounded-full cursor-pointer dark:bg-gray-800 dark:text-white/80 backdrop-blur-3xl whitespace-nowrap">
-      <slot />
-    </div>
-  </span>
-  </div>
+<span class="badge">
+  <span class="lamp" aria-hidden="true"></span>
+  <slot />
+</span>
+
+<style>
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.3rem 0.9rem 0.3rem 0.6rem;
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.03em;
+    color: var(--color-mahogany);
+    background: rgb(255 255 240 / 0.7);
+    border: 1.5px solid var(--color-brass);
+    box-shadow: inset 0 0 0 2px rgb(181 166 66 / 0.18), 0 2px 8px rgb(62 36 20 / 0.12);
+  }
+
+  .lamp {
+    position: relative;
+    width: 0.65rem;
+    height: 0.65rem;
+    border-radius: 999px;
+    background: var(--color-teal);
+    box-shadow: 0 0 0 2px rgb(0 128 128 / 0.2);
+  }
+
+  .lamp::after {
+    content: "";
+    position: absolute;
+    inset: -4px;
+    border-radius: inherit;
+    background: rgb(0 128 128 / 0.35);
+    animation: lamp-glow 2.4s ease-in-out infinite;
+  }
+
+  @keyframes lamp-glow {
+    0%,
+    100% {
+      opacity: 0;
+      transform: scale(0.6);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lamp::after {
+      animation: none;
+      opacity: 0.6;
+    }
+  }
+</style>

@@ -1,0 +1,25 @@
+---
+import Gear from "./Gear.astro"
+
+interface Props {
+  numeral: string
+  title: string
+  intro?: string
+}
+
+const { numeral, title, intro } = Astro.props
+---
+
+<header class="mb-12 md:mb-16" data-reveal>
+  <div class="flex items-center gap-5">
+    <h2 class="nameplate riveted text-[1.75rem] leading-tight md:text-[2.25rem]">
+      <span class="font-mono text-sm tracking-widest text-mahogany/70">{numeral}</span>
+      <slot />
+      {title}
+    </h2>
+    <div class="ornament hidden flex-1 sm:flex" aria-hidden="true">
+      <Gear teeth={10} module={3} class="size-6 text-copper" />
+    </div>
+  </div>
+  {intro && <p class="mt-5 max-w-[72ch] text-lg text-sepia">{intro}</p>}
+</header>

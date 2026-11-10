@@ -1,0 +1,37 @@
+---
+import Schematic from "./Schematic.astro"
+import type { Lang, Visual } from "../i18n/content"
+
+interface Props {
+  visual: Visual
+  lang: Lang
+  aspect?: string
+}
+
+const { visual, lang, aspect = "aspect-[4/3]" } = Astro.props
+---
+
+{
+  visual.kind === "image" ? (
+    <img
+      src={visual.src}
+      alt={visual.alt}
+      width="960"
+      height="720"
+      loading="lazy"
+      decoding="async"
+      class:list={["plate block w-full rounded-md object-cover", aspect]}
+    />
+  ) : (
+    <div class:list={["w-full rounded-md bg-parchment/70", aspect]}>
+      <Schematic variant={visual.variant} alt={visual.alt} lang={lang} class="h-full w-full" />
+    </div>
+  )
+}
+
+<style>
+  /* Toned like an old photographic plate so screenshots sit in the palette */
+  .plate {
+    filter: sepia(0.3) saturate(0.85) contrast(1.03);
+  }
+</style>
